@@ -7,6 +7,7 @@ const router = require("./router/router");
 const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
 //Hum chahte hai ki pehle mongooes connect ho bad me server start
 // const startServer = async () => {
 //   await connectDB();
@@ -21,18 +22,15 @@ const PORT = process.env.PORT || 5000;
 // -------------------------------------------------------------------------------
 
 mongoose
-  .connect(
-    "mongodb+srv://bikramnarayandhanraj:BndAtlas@bndcluster.feamzgv.mongodb.net/?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   // .then((db) => console.log("DB is connected"))
   .then(() => {
     app.listen(PORT, () => {
-      console.log(process.env.PORT);
-      console.log(process.env.MONGO_URI);
+      // console.log(process.env.PORT);
+      // console.log(process.env.MONGO_URI);
       console.log("server started " + PORT);
     });
   })
@@ -53,5 +51,3 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(router);
 // -------------------------------------------------------------------------------
-
-//mongodb+srv://bikramnarayandhanraj:<password>@bndcluster.feamzgv.mongodb.net/?retryWrites=true&w=majority
